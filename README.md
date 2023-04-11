@@ -295,7 +295,8 @@ task:
 
 ### Data Analyst 📊
 
-Inputs: Data, info, experiment 
+Inputs: Data, info, experiment
+
 Outputs: Results, data, query
 
 The info they request should be related to: 
