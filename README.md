@@ -320,8 +320,10 @@ An illustrative example:
 
 ### Reporter 🎤
 
--   Inputs: Results, info, plan, experiment, objective
--   Outputs: Report The info they request should be related to:
+Inputs: Results, info, plan, experiment, objective
+Outputs: Report 
+
+The info they request should be:
 -   Anything related to the project
 
 The reporters job is to compile the results from the Analyst into a
@@ -336,7 +338,8 @@ the objective is.
 
 ### Judge 🧑‍⚖️
 
-Input: Objective, Results 
+Input: Objective, Results
+
 Output: Judgment
 
 The Judge’s job is to evaluate the report and determine if the research
