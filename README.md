@@ -315,12 +315,12 @@ An illustrative example:
 
 ![image](https://user-images.githubusercontent.com/47462814/231228581-d3a5f9c6-50e5-4b86-90f6-7176d9cd9f46.png)
 ![image](https://user-images.githubusercontent.com/47462814/231228869-786962a8-d47d-48a2-8683-c609c3ec77c0.png)
-
 ![image](https://user-images.githubusercontent.com/47462814/231228972-d323a20f-74f3-458a-a093-94684cdb161d.png)
 
 ### Reporter 🎤
 
 Inputs: Results, info, plan, experiment, objective
+
 Outputs: Report 
 
 The info they request should be:
