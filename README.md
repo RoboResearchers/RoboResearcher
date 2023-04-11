@@ -194,8 +194,8 @@ An illustrative example:
 
 ### Monkey 🐵
 
-Input: Experiment, info, data Outputs: API Calls, emails, code, data,
-query
+Input: Experiment, info, data 
+Outputs: API Calls, emails, code, data, query
 
 The info they request should be related to: 
 * Experiment 
@@ -295,7 +295,8 @@ task:
 
 ### Data Analyst 📊
 
-Inputs: Data, info, experiment Outputs: Results, data, query
+Inputs: Data, info, experiment 
+Outputs: Results, data, query
 
 The info they request should be related to: 
 * Objective 
@@ -335,13 +336,15 @@ the objective is.
 
 ### Judge 🧑‍⚖️
 
-Input: Objective, Results Output: Judgment
+Input: Objective, Results 
+Output: Judgment
 
 The Judge’s job is to evaluate the report and determine if the research
 satisfied the objective, if not then it will be fed back into the cycle.
 If it does the report and the judgment will be sent to the User.
 
 # Bibliography
+
 <div id="refs" class="references csl-bib-body hanging-indent">
 
 <div id="ref-AlphafoldAPIDeveloper" class="csl-entry">
