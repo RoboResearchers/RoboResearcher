@@ -2,7 +2,7 @@
 
 An AI agent for automatically researching an objective, executing
 experiments, analyzing, and creating a result using complex chains of
-reasoning and tool use (Paranjape et al. 2023) (Dohan et al. 2022).
+reasoning and tool use similar to [ART: Automatic Multi-Step Reasoning and Tool-Use for Large Language Models.](https://doi.org/10.48550/arXiv.2303.09014) [Language Model Cascades.](https://doi.org/10.48550/arXiv.2207.10342).
 
 # Structure 🧱
 
@@ -45,9 +45,8 @@ create fully independent researchers.
 -   Poorly-defined objective
     -   Cure aging
 
-The need for a well-thought out research objective is self evident (Owen
-Doody 2014), and the need for appropriate [prompt
-engineering](https://github.com/dair-ai/Prompt-Engineering-Guide)further
+The need for a well-thought out research objective is [self evident](https://doi.org/10.7748/nr.23.4.19.s5), and the need for appropriate [prompt
+engineering](https://github.com/dair-ai/Prompt-Engineering-Guide) further
 emphasizes this leading to several areas of optimization:
 
 -   [ ] What constitutes a well-defined objective
@@ -57,7 +56,7 @@ emphasizes this leading to several areas of optimization:
 -   [ ] Organization (eg. Find a gene that causes CF and then simulate
     the protein it should make vs. simulate the protein that causes CF
     based on the gene)
--   [ ] Complexity level (Farrugia et al. 2010) can Agents handle the
+-   [ ] [Complexity level](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2912019/) can Agents handle the
     more complex case of being presented a research question or
     hypothesis?
 
@@ -71,8 +70,7 @@ RoboResearcher is confused.
 The question-answer pair will be returned to the Archivist which can
 then be used to answer the Agent that asked the question.
 
-This is an area that has shown promise in past research (Misra et al.
-2017) and the relevance to the scientific method cannot be understated.
+This is an area that has shown promise in [past research](https://doi.org/10.48550/arXiv.1712.01238) and the relevance to the scientific method cannot be understated.
 The areas of research for this topic would be:
 
 -   [ ] How much should we motivate Agents to ask questions?
@@ -93,7 +91,7 @@ The database is a storage location for all data that might be relevant
 to the tasks the Agents complete. The database can be added to via the
 Archivist, the User, or the Agents. This can be queried through a
 variety of possible mechanisms from standard search via pattern matching
-to semantic search methods (Leys 2022).
+to [semantic search methods](https://blog.ml6.eu/semantic-search-a-practical-overview-bf2515e7be76).
 
 #### Types of data
 
@@ -101,14 +99,11 @@ to semantic search methods (Leys 2022).
     -   Uploaded data (eg. A csv of some data, a PDF of a paper)
     -   Connecting an extant database (eg. a home server)
 -   Archivist
-    -   Data queried from an API request (eg. the
-        [PDB](https://www.rcsb.org/docs/programmatic-access/web-services-overview))
-    -   Plugin (eg. Wolfram Alpha (“ChatGPT Gets Its ‘Wolfram
-        Superpowers’!” 2023) )
+    -   Data queried from an API request (eg. the [PDB](https://www.rcsb.org/docs/programmatic-access/web-services-overview))
+    -   Plugin (eg. [Wolfram Alpha](https://writings.stephenwolfram.com/2023/03/chatgpt-gets-its-wolfram-superpowers/))
     -   Info
 -   Agents
-    -   Generated data (eg. results from an Alphafold API call
-        (“Alphafold API - Developer Docs, APIs, SDKs, and Auth.” n.d.))
+    -   Generated data (eg. results from an [Alphafold](https://apitracker.io/a/alphafold) API call
     -   Reports, Experiments, results, plans, etc.
 
 ### Archivist 👘
@@ -211,9 +206,8 @@ Archivist for help.
 #### API’s and other access points
 
 The ability to make API calls is already confirmed through the coming of
-Toolformer (Schick et al. 2023) and open source implementations are
-already underway such as
-[here](https://github.com/conceptofmind/toolformer) and
+[Toolformer](https://doi.org/10.48550/arXiv.2302.04761) and open source implementations are
+already underway such as [here](https://github.com/conceptofmind/toolformer) and
 [here](https://github.com/lucidrains/toolformer-pytorch). This implies
 that the only real barrier here would be accessing information on the
 API’s themselves and integrating them into the Toolformer framework, a
@@ -221,13 +215,11 @@ task that itself may be well suited to automation.
 
 This is a short list of some places that might be useful to send API
 calls for experimental purposes: 
-* HADDOCK (“HADDOCK” n.d.) 
-* ROSETTA (“Servers \| RosettaCommons” n.d.) 
-* Cyrus Biotechnologies (Sam n.d.)
-* Alphafold (“Alphafold API - Developer Docs, APIs, SDKs, and Auth.”
-n.d.) 
-* Emerald Cloud Labs (“Emerald Cloud Labs API Documentation”
-n.d.) 
+* [HADDOCK](https://github.com/haddocking)
+* [ROSETTA](https://www.rosettacommons.org/software/servers#rosetta-at-cloud)
+* [Cyrus Biotechnologies](https://support.cyrusbio.com/api/api/)
+* [Alphafold](https://apitracker.io/a/alphafold)
+* [Emerald Cloud Labs](https://www.emeraldcloudlab.com/internal-developers-api/)
 * etc.
 
 Other CRO’s are still accessible via automated email requests if an
@@ -328,10 +320,8 @@ The info they request should be:
 -   Anything related to the project
 
 The reporters job is to compile the results from the Analyst into a
-human-readable report. This is where a multi-modal LM can shine
-(“PaLM-E: An Embodied Multimodal Language Model – Google AI Blog” n.d.)
-or an open-source
-[alternative](https://blog.salesforceairesearch.com/blip-2/). The goal
+human-readable report. This is where a [multi-modal LM](https://ai.googleblog.com/2023/03/palm-e-embodied-multimodal-language.html) can shine
+or an open-source [alternative](https://blog.salesforceairesearch.com/blip-2/). The goal
 is to create a report with a variety of multi-media information that
 pertains to the original objective. Showing how the objective has been
 answered experimentally and what those results indicate the answer to
@@ -346,118 +336,3 @@ Output: Judgment
 The Judge’s job is to evaluate the report and determine if the research
 satisfied the objective, if not then it will be fed back into the cycle.
 If it does the report and the judgment will be sent to the User.
-
-# Bibliography
-
-<div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-AlphafoldAPIDeveloper" class="csl-entry">
-
-“Alphafold API - Developer Docs, APIs, SDKs, and Auth.” n.d. Accessed
-April 10, 2023. <https://apitracker.io/a/alphafold>.
-
-</div>
-
-<div id="ref-ChatGPTGetsIts2023" class="csl-entry">
-
-“ChatGPT Gets Its ‘Wolfram Superpowers’!” 2023. March 23, 2023.
-<https://writings.stephenwolfram.com/2023/03/chatgpt-gets-its-wolfram-superpowers/>.
-
-</div>
-
-<div id="ref-dohanLanguageModelCascades2022" class="csl-entry">
-
-Dohan, David, Winnie Xu, Aitor Lewkowycz, Jacob Austin, David Bieber,
-Raphael Gontijo Lopes, Yuhuai Wu, et al. 2022. “Language Model
-Cascades.” arXiv. <https://doi.org/10.48550/arXiv.2207.10342>.
-
-</div>
-
-<div id="ref-EmeraldCloudLabs" class="csl-entry">
-
-“Emerald Cloud Labs API Documentation.” n.d. Accessed April 10, 2023.
-<https://www.emeraldcloudlab.com/internal-developers-api/>.
-
-</div>
-
-<div id="ref-farrugiaResearchQuestionsHypotheses2010" class="csl-entry">
-
-Farrugia, Patricia, Bradley A. Petrisor, Forough Farrokhyar, and Mohit
-Bhandari. 2010. “Research Questions, Hypotheses and Objectives.”
-*Canadian Journal of Surgery* 53 (4): 278–81.
-<https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2912019/>.
-
-</div>
-
-<div id="ref-HADDOCK" class="csl-entry">
-
-“HADDOCK.” n.d. GitHub. Accessed April 10, 2023.
-<https://github.com/haddocking>.
-
-</div>
-
-<div id="ref-leysSemanticSearchPractical2022" class="csl-entry">
-
-Leys, Mathias. 2022. “Semantic Search: A Practical Overview.” Medium.
-May 9, 2022.
-<https://blog.ml6.eu/semantic-search-a-practical-overview-bf2515e7be76>.
-
-</div>
-
-<div id="ref-misraLearningAskingQuestions2017" class="csl-entry">
-
-Misra, Ishan, Ross Girshick, Rob Fergus, Martial Hebert, Abhinav Gupta,
-and Laurens van der Maaten. 2017. “Learning by Asking Questions.” arXiv.
-<https://doi.org/10.48550/arXiv.1712.01238>.
-
-</div>
-
-<div id="ref-owendoodySettingResearchQuestion2014" class="csl-entry">
-
-Owen Doody, Maria E. Bailey. 2014. “Setting a Research Question, Aim and
-Objective.” Text. Nurse Researcher. November 4, 2014.
-<https://doi.org/10.7748/nr.23.4.19.s5>.
-
-</div>
-
-<div id="ref-PaLMEEmbodiedMultimodal" class="csl-entry">
-
-“PaLM-E: An Embodied Multimodal Language Model – Google AI Blog.” n.d.
-Accessed April 10, 2023.
-<https://ai.googleblog.com/2023/03/palm-e-embodied-multimodal-language.html>.
-
-</div>
-
-<div id="ref-paranjapeARTAutomaticMultistep2023" class="csl-entry">
-
-Paranjape, Bhargavi, Scott Lundberg, Sameer Singh, Hannaneh Hajishirzi,
-Luke Zettlemoyer, and Marco Tulio Ribeiro. 2023. “ART: Automatic
-Multi-Step Reasoning and Tool-Use for Large Language Models.” arXiv.
-<https://doi.org/10.48550/arXiv.2303.09014>.
-
-</div>
-
-<div id="ref-samAPICyrusBiotechnology" class="csl-entry">
-
-Sam. n.d. “API \| Cyrus Biotechnology.” Accessed April 10, 2023.
-<https://support.cyrusbio.com/api/api/>.
-
-</div>
-
-<div id="ref-schickToolformerLanguageModels2023" class="csl-entry">
-
-Schick, Timo, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria
-Lomeli, Luke Zettlemoyer, Nicola Cancedda, and Thomas Scialom. 2023.
-“Toolformer: Language Models Can Teach Themselves to Use Tools.” arXiv.
-<https://doi.org/10.48550/arXiv.2302.04761>.
-
-</div>
-
-<div id="ref-ServersRosettaCommons" class="csl-entry">
-
-“Servers \| RosettaCommons.” n.d. Accessed April 10, 2023.
-<https://www.rosettacommons.org/software/servers#rosetta-at-cloud>.
-
-</div>
-
-</div>
