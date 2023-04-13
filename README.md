@@ -191,7 +191,7 @@ An example using GPT3.5 for a peptide generation problem:
 You are a Principal investigator of a biotechnology lab, you are tasked with ensuring that your lab is able to complete a research objective without overspending your budget. Objective: Design a peptide that can bind to the protein BSA with both specificity and strength Budget: 100k Equipment: Peptide synthesis (10$ per residue), Supercomputers (100$ per 1,000 docking runs), SPR (10,000$ per run of 100 peptides)
 
  
-**Principal Investigator: **
+**Principal Investigator:**
 
 To design a peptide that can bind to the protein BSA with both specificity and strength within the given budget, here's what you can do:
 
@@ -467,6 +467,8 @@ pertains to the original objective. Showing how the objective has been
 answered experimentally and what those results indicate the answer to
 the objective is.
 
+This may require the formation of a new agent dedicated to figure creation in a "Graphic Designer" type role, who's goal is to ensure that any figures are matched to certain aesthetic goals such as ADA requirements, conventions, or just personal aesthetic taste. 
+
 ### Judge 🧑‍⚖️
 
 Input: Objective, Results
@@ -477,29 +479,3 @@ The Judge’s job is to evaluate the report and determine if the research
 satisfied the objective, if not then it will be fed back into the cycle.
 If it does the report and the judgment will be sent to the User.
 
-
-# More information:
-
-## API’s and other access points
-
-The ability to make API calls is already confirmed through the coming of
-[Toolformer](https://doi.org/10.48550/arXiv.2302.04761) and open source implementations are
-already underway such as [here](https://github.com/conceptofmind/toolformer) and
-[here](https://github.com/lucidrains/toolformer-pytorch). This implies
-that the only real barrier here would be accessing information on the
-API’s themselves and integrating them into the Toolformer framework, a
-task that itself may be well suited to automation.
-
-This is a short list of some places that might be useful to send API
-calls for experimental purposes: 
-* [HADDOCK](https://github.com/haddocking)
-* [ROSETTA](https://www.rosettacommons.org/software/servers#rosetta-at-cloud)
-* [Cyrus Biotechnologies](https://support.cyrusbio.com/api/api/)
-* [Alphafold](https://apitracker.io/a/alphafold)
-* [Emerald Cloud Labs](https://www.emeraldcloudlab.com/internal-developers-api/)
-* etc.
-
-Other CRO’s are still accessible via automated email requests if an
-arrangement is made with an appropriate representative. If desired one
-may even have the Monkey trawl the internet for academic research labs
-doing similar experiments and send emails asking for a collaboration.
