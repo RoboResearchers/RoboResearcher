@@ -142,11 +142,16 @@ The exact order of actions for the Archivist will be left up to the User or Arch
     such as [scite](https://scite.ai/). Although this is
     [APGL](https://github.com/MuiseDestiny/zotero-gpt).
     
+    Here is an example of a relatively naive compression of the original data for use by the Monkey to clean a PDB:
+    
+   ** User:**
+    
     You are the Archivist, an advanced agent specialized in the field of information transfer to other language models. Compress the following text in a way that fits in the fewest number of tokens and such that you (GPT-3.5) can reconstruct the intention of the human who wrote text as close as possible to the original intention. This is for yourself. It does not need to be human readable or understandable. Abuse of language mixing, abbreviations, symbols (unicode and emoji), or any other encodings or internal representations is all permissible, as long as it, if pasted in a new inference cycle, will yield near-identical results as the original text:
     
     Info: Context Description return\_type Required. Specifies the type of the returned identifiers, e.g. entry, polymer entity, assembly, etc. See Return Type section for more information. query Optional. Specifies the search expression. Can be omitted if, instead of IDs retrieval, facets or count operation should be performed. In this case the request must be configured via the request\_options context. request\_options Optional. Controls various aspects of the search request including pagination, sorting, scoring and faceting. If omitted, the default parameters for sorting, scoring and pagination will be applied. request\_info Optional. Specifies an additional information about the query, e.g. query\_id. It's an optional property and used internally at RCSB PDB for logging purposes. When query\_id is sent with the search request, it will be included into the corresponding response object. The query context may consist of two types of clauses: Terminal node - performs an atomic search operation, e.g. searches for a particular value in a particular field. Parameters in the terminal query clause provide match criteria for finding relevant search hits. The set of parameters differs for different search services. Group node - wraps other terminal or group nodes and is used to combine multiple queries in a logical fashion. The simplest query requires specifying only return\_type parameter and query context. With unspecified parameters property in the query object, a query matches all documents, returning PDB IDs if the return\_type property is set to "entry". { "query": { "type": "terminal", "service": "text" }, "return\_type": "entry" } Query example: { "query": { "type": "terminal", "service": "full\_text", "parameters": { "value": "thymidine kinase" } }, "return\_type": "entry" } Response example: { "query\_id": "ce0e1f8a-2a66-4e3f-8b8b-7ecdb1e3458d", "result\_type": "entry", "total\_count": 2, "result_set": \[ { "identifier": "2V01", "score": 0.719 }, { "identifier": "3CLN", "score": 0.813 } \] } The URL and API key to access the PDB API. URL is "this.com" and API key is "1234ABCD" The molecular modeling software to be used for removing water molecules, ligands, and ions. Chimera
     
-    Archivist:
+    **Archivist:**
+    
     Context Description return\_type req. Specifies type of returned IDs (entry, polymer entity, assembly). query opt. Specifies search expression. If omitted, facets/count op. used. req\_options opt. Controls various aspects of search request (pagination, sorting, scoring, faceting). If omitted, default params used. req\_info opt. Specifies additional query info (e.g. query\_id) for logging. query context consists of Terminal node (atomic search) and Group node (logical combo of queries). Simplest query requires only return\_type and query context. Unspecified params match all docs if return\_type set to "entry". {"query":{"type":"terminal","service":"text"},"return\_type":"entry"} Query example: {"query":{"type":"terminal","service":"full\_text","parameters":{"value":"thymidine kinase"}},"return\_type":"entry"} Response example: {"query\_id":"ce0e1f8a-2a66-4e3f-8b8b-7ecdb1e3458d","result\_type":"entry","total\_count":2,"result_set":\[{"identifier":"2V01","score":0.719},{"identifier":"3CLN","score":0.813}\]} URL: "this.com", API key: "1234ABCD". Software for removing water, ligands, ions: Chimera.
 
 
@@ -165,7 +170,11 @@ easily parses)
 
 ### Principal Investigator🧑‍🔬
 
-Inputs: Objective, info Output: Research plan The info they request
+Inputs: Objective, info 
+
+Output: Research plan 
+
+The info they request
 should be related to: 
 * Objective 
 * Budget 
@@ -176,11 +185,13 @@ the objective. This could be thought of as the highest level planner.
 
 An example using GPT3.5 for a peptide generation problem:
 
-User:
+**User:**
+
 You are a Principal investigator of a biotechnology lab, you are tasked with ensuring that your lab is able to complete a research objective without overspending your budget. Objective: Design a peptide that can bind to the protein BSA with both specificity and strength Budget: 100k Equipment: Peptide synthesis (10$ per residue), Supercomputers (100$ per 1,000 docking runs), SPR (10,000$ per run of 100 peptides)
 
  
-Principal Investigator: 
+**Principal Investigator: **
+
 To design a peptide that can bind to the protein BSA with both specificity and strength within the given budget, here's what you can do:
 
 1.  Start by designing a set of potential peptides using computational methods. This would involve using supercomputers to dock different peptides onto the BSA protein and predict which ones are likely to bind with high specificity and strength. Assuming 1,000 docking runs at a cost of $100 per 1,000 runs, this would cost $10,000.
@@ -210,14 +221,13 @@ The info requested should be related to:
 * Equipment 
 * Information on available equipment
 
-An example using GPT3.5:
+An example of designing an experiment based on part of the research plan using GPT3.5:
 
-User:
+**User:**
+
 You are an Experimental Designer who has been tasked by your PI to design the experiments for their Research Plan. The Equipment is a list of all the things available for any Experiment you develop. Please write up a step by step guide for the experiment such that each step is as self-contained as possible. Do not suggest any new research outside of the Research Plan and feel free to insert \[User Input Here\] for any techniques you may not know. Research Plan: Start by designing a set of potential peptides using computational methods. This would involve using supercomputers to dock different peptides onto the BSA protein and predict which ones are likely to bind with high specificity and strength. Assuming 1,000 docking runs at a cost of $100 per 1,000 runs, this would cost $10,000. Equipment: Supercomputer, Modeling Software, Docking Software, Bash scripting, PDB API access.
 
- 
-
-Experimental Designer:
+**Experimental Designer:**
 
 1.  Generate a list of potential peptides: Use modeling software to generate a list of potential peptides. This can be done using de novo peptide design or by modifying existing peptides to improve binding to BSA protein. \[User Input Here\] can be used for this step.
     
@@ -249,7 +259,7 @@ Monkey will begin attempting to execute code in a local environment to
 complete the task required. If the Monkey runs into problems it asks the
 Archivist for help.
 
-Here is an example of how the Monkey generates code to clean BSA in accordance with the first task in the experiment outlined above.
+Here is an example of how the Monkey generates code to clean BSA in accordance with the first task in the experiment outlined above. Of note when asked to send the email based on the list the Monkey selected a Java developer over a Protein Engineer, this may be due to the identification of this as a "programming task" but we should be aware that bias may be introduced. 
 
 **User:**
 
@@ -356,30 +366,6 @@ Example request body:
 ```
 Note: You will need to implement the email API and integrate it with an email service provider such as SendGrid or Amazon SES to actually send the email.
 
-
-#### API’s and other access points
-
-The ability to make API calls is already confirmed through the coming of
-[Toolformer](https://doi.org/10.48550/arXiv.2302.04761) and open source implementations are
-already underway such as [here](https://github.com/conceptofmind/toolformer) and
-[here](https://github.com/lucidrains/toolformer-pytorch). This implies
-that the only real barrier here would be accessing information on the
-API’s themselves and integrating them into the Toolformer framework, a
-task that itself may be well suited to automation.
-
-This is a short list of some places that might be useful to send API
-calls for experimental purposes: 
-* [HADDOCK](https://github.com/haddocking)
-* [ROSETTA](https://www.rosettacommons.org/software/servers#rosetta-at-cloud)
-* [Cyrus Biotechnologies](https://support.cyrusbio.com/api/api/)
-* [Alphafold](https://apitracker.io/a/alphafold)
-* [Emerald Cloud Labs](https://www.emeraldcloudlab.com/internal-developers-api/)
-* etc.
-
-Other CRO’s are still accessible via automated email requests if an
-arrangement is made with an appropriate representative. If desired one
-may even have the Monkey trawl the internet for academic research labs
-doing similar experiments and send emails asking for a collaboration.
 
 ### Data Analyst 📊
 
@@ -489,3 +475,30 @@ Output: Judgment
 The Judge’s job is to evaluate the report and determine if the research
 satisfied the objective, if not then it will be fed back into the cycle.
 If it does the report and the judgment will be sent to the User.
+
+
+# More information:
+
+## API’s and other access points
+
+The ability to make API calls is already confirmed through the coming of
+[Toolformer](https://doi.org/10.48550/arXiv.2302.04761) and open source implementations are
+already underway such as [here](https://github.com/conceptofmind/toolformer) and
+[here](https://github.com/lucidrains/toolformer-pytorch). This implies
+that the only real barrier here would be accessing information on the
+API’s themselves and integrating them into the Toolformer framework, a
+task that itself may be well suited to automation.
+
+This is a short list of some places that might be useful to send API
+calls for experimental purposes: 
+* [HADDOCK](https://github.com/haddocking)
+* [ROSETTA](https://www.rosettacommons.org/software/servers#rosetta-at-cloud)
+* [Cyrus Biotechnologies](https://support.cyrusbio.com/api/api/)
+* [Alphafold](https://apitracker.io/a/alphafold)
+* [Emerald Cloud Labs](https://www.emeraldcloudlab.com/internal-developers-api/)
+* etc.
+
+Other CRO’s are still accessible via automated email requests if an
+arrangement is made with an appropriate representative. If desired one
+may even have the Monkey trawl the internet for academic research labs
+doing similar experiments and send emails asking for a collaboration.
