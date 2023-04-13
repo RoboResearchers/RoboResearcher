@@ -7,21 +7,21 @@ reasoning and tool use similar to [ART: Automatic Multi-Step Reasoning and Tool-
 # Table of Contents
 
 - [RoboResearcher🤖](#RoboResearcher)
-- [Structure 🧱](#Structure)
-  - [User 👤](#User)
+- [Structure 🧱](#Structure-)
+  - [User 👤](#User-)
     - [Objectives🥅](#Objectives)
-    - [Answers 🙋](#Answers)
+    - [Answers 🙋](#Answers-)
   - [Records📚](#Records)
-    - [Database🗄️](#Database)
+    - [Database🗄️](#Database-)
       - [Types of data](#types-of-data)
-    - [Archivist 👘](#Archivist)
-  - [Agents 🕵️](#agents)
+    - [Archivist 👘](#archivist-)
+  - [Agents 🕵️](#agents-)
     - [Principal Investigator🧑‍🔬](#principal-investigator)
-    - [Experimental Designer 🥼](#experimental-designer)
-    - [Monkey 🐵](#monkey)
-    - [Data Analyst 📊](#data-analyst)
-    - [Reporter 🎤](#reporter)
-    - [Judge 🧑‍⚖️](#judge)
+    - [Experimental Designer 🥼](#experimental-designer-)
+    - [Monkey 🐵](#monkey-)
+    - [Data Analyst 📊](#data-analyst-)
+    - [Reporter 🎤](#reporter-)
+    - [Judge 🧑‍⚖️](#judge-)
 
 
 
@@ -33,11 +33,11 @@ reasoning and tool use similar to [ART: Automatic Multi-Step Reasoning and Tool-
 ```mermaid
 graph TB
     subgraph User
-        U1[User]
+        U1[Head]
     end
 
     subgraph Agents
-        A1[Agent]
+        A1[Head]
         PI[Principle Investigator]
         ED[Experimental Designer]
         M[Monkey]
@@ -48,30 +48,30 @@ graph TB
     end
 
     subgraph Records
-        R1[Records]
+        R1[Head]
         AR[Archivist]
         DB[Database]
     end
 
-    U1 -- Sends objective --> A1
-    U1 -- Answers --> R1
+    U1 == objective ==> A1
+    U1 == answer ==> R1
 
-    A1 -- Sends report --> U1
-    A1 -- Sends query --> R1
-    A1 -- Sends objective --> PI
-    PI -- Sends plan --> ED
-    ED -- Sends Experiment --> M
-    M -- Sends API Call --> CRO
-    CRO -- Sends data --> AN
-    AN -- Sends results --> RP
-    RP -- Sends report --> J
-    J -- Sends Judgment --> A1
+    A1 == report ===> U1
+    A1 == query ===> R1
+    A1 == objective ===> PI
+    PI == plan ===> ED
+    ED == experiment ===> M
+    M == API Call ===> CRO
+    CRO == data ===> AN
+    AN == results ===> RP
+    RP == report ===> J
+    J == judgment ===> A1
 
-    R1 -- Sends question --> U1
-    R1 -- Sends info --> A1
-    AR -- Sends requests --> DB
-    DB -- Sends raw data --> AR
-    AR -- Sends info --> R1
+    R1 == question ==> U1
+    R1 == info ==> A1
+    AR == request ==> DB
+    DB == raw info ==> AR
+    AR == info ==> R1
 
 ```
 
