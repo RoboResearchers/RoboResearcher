@@ -4,6 +4,27 @@ An AI agent for automatically researching an objective, executing
 experiments, analyzing, and creating a result using complex chains of
 reasoning and tool use similar to [ART: Automatic Multi-Step Reasoning and Tool-Use for Large Language Models.](https://doi.org/10.48550/arXiv.2303.09014) [Language Model Cascades.](https://doi.org/10.48550/arXiv.2207.10342).
 
+# Table of Contents
+
+- [RoboResearcher🤖](#roboresearcher)
+- [Structure 🧱](#structure)
+  - [User 👤](#user)
+    - [Objectives🥅](#objectives)
+    - [Answers 🙋](#answers)
+  - [Records📚](#records)
+    - [Database🗄️](#database)
+      - [Types of data](#types-of-data)
+    - [Archivist 👘](#archivist)
+  - [Agents 🕵️](#agents)
+    - [Principal Investigator🧑‍🔬](#principal-investigator)
+    - [Experimental Designer 🥼](#experimental-designer)
+    - [Monkey 🐵](#monkey)
+    - [Data Analyst 📊](#data-analyst)
+    - [Reporter 🎤](#reporter)
+    - [Judge 🧑‍⚖️](#judge)
+
+
+
 # Structure 🧱
 
 ![image](https://user-images.githubusercontent.com/47462814/231152697-e0f6d0ac-3e35-4328-9cb4-51ddd3d7d34e.png)
