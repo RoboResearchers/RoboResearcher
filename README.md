@@ -33,7 +33,7 @@ reasoning and tool use similar to [ART: Automatic Multi-Step Reasoning and Tool-
 ```mermaid
 graph TB
     classDef usercolor fill:#c00
-    classDef agentcolor fill:#00F
+    classDef agentcolor fill:#3FA0EF
     classDef recordcolor fill:#363
     
         U1[User]:::usercolor
