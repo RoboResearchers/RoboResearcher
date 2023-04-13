@@ -32,68 +32,50 @@ reasoning and tool use similar to [ART: Automatic Multi-Step Reasoning and Tool-
 
 ```mermaid
 graph TB
-    subgraph User
-        U1[Head]
-    end
+    classDef usercolor fill:#c00
+    classDef agentcolor fill:#00F
+    classDef recordcolor fill:#363
+    
+        U1[User]:::usercolor
 
     subgraph Agents
-        A1[Head]
-        PI[Principle Investigator]
-        ED[Experimental Designer]
-        M[Monkey]
-        CRO[CRO]
-        AN[Analyst]
-        RP[Reporter]
-        J[Judge]
+        %% A1[Head]:::agentcolor
+        PI[Principle Investigator]:::agentcolor
+        ED[Experimental Designer]:::agentcolor
+        M[Monkey]:::agentcolor
+        CRO[CRO]:::agentcolor
+        AN[Analyst]:::agentcolor
+        RP[Reporter]:::agentcolor
+        J[Judge]:::agentcolor
     end
 
     subgraph Records
-        R1[Head]
-        AR[Archivist]
-        DB[Database]
+        %% R1[Head]:::recordcolor
+        AR[Archivist]:::recordcolor
+        DB[Database]:::recordcolor
     end
 
-    U1 == objective ==> A1
-    U1 == answer ==> R1
+   %% U1 == objective ==> PI
+    U1 == answer ==> AR
 
-    A1 == report ===> U1
-    A1 == query ===> R1
-    A1 == objective ===> PI
+    PI == query ===> AR
+    U1 == objective ===> PI
     PI == plan ===> ED
     ED == experiment ===> M
     M == API Call ===> CRO
     CRO == data ===> AN
     AN == results ===> RP
     RP == report ===> J
-    J == judgment ===> A1
+    J == judgment ===> U1
 
-    R1 == question ==> U1
-    R1 == info ==> A1
+    AR == question ==> U1
+    %% R1 == info ==> PI
     AR == request ==> DB
     DB == raw info ==> AR
-    AR == info ==> R1
+    AR == info ==> PI
 
 ```
 
-Please construct the code for a mermaid chart representing the following information. 
-
-Three subgraphs of this chart are User, Agent, and Records. Each one of these is composed of nodes that have multiple connections.
-
-User: (Sends objective to Agent and Answers to Records) 
-
-Agents: (Sends report to User and query to Records)
-    - Agents sends objective to Principle Investigator
-    - Principle Investigator sends plan to Experimental Designer
-    - Experimental Designer sends Experiment to Monkey
-    - Monkey sends API Call to CRO
-    - CRO sends data to Analyst
-    - Analyst sends results to reporter
-    - Reporter sends report to Judge
-    - Judge sends Judgment to Agents
-Records: (Sends question to user and info to Agents)
-    - Archivist sends requests to the Database 
-    - Database sends raw data to Archivist
-    - Archivist sends info to Records
     
 
 
