@@ -6,15 +6,15 @@ reasoning and tool use similar to [ART: Automatic Multi-Step Reasoning and Tool-
 
 # Table of Contents
 
-- [RoboResearcher🤖](#roboresearcher)
-- [Structure 🧱](#structure)
-  - [User 👤](#user)
-    - [Objectives🥅](#objectives)
-    - [Answers 🙋](#answers)
-  - [Records📚](#records)
-    - [Database🗄️](#database)
+- [RoboResearcher🤖](#RoboResearcher)
+- [Structure 🧱](#Structure)
+  - [User 👤](#User)
+    - [Objectives🥅](#Objectives)
+    - [Answers 🙋](#Answers)
+  - [Records📚](#Records)
+    - [Database🗄️](#Database)
       - [Types of data](#types-of-data)
-    - [Archivist 👘](#archivist)
+    - [Archivist 👘](#Archivist)
   - [Agents 🕵️](#agents)
     - [Principal Investigator🧑‍🔬](#principal-investigator)
     - [Experimental Designer 🥼](#experimental-designer)
@@ -28,6 +28,74 @@ reasoning and tool use similar to [ART: Automatic Multi-Step Reasoning and Tool-
 # Structure 🧱
 
 ![image](https://user-images.githubusercontent.com/47462814/231152697-e0f6d0ac-3e35-4328-9cb4-51ddd3d7d34e.png)
+
+
+```mermaid
+graph TB
+    subgraph User
+        U1[User]
+    end
+
+    subgraph Agents
+        A1[Agent]
+        PI[Principle Investigator]
+        ED[Experimental Designer]
+        M[Monkey]
+        CRO[CRO]
+        AN[Analyst]
+        RP[Reporter]
+        J[Judge]
+    end
+
+    subgraph Records
+        R1[Records]
+        AR[Archivist]
+        DB[Database]
+    end
+
+    U1 -- Sends objective --> A1
+    U1 -- Answers --> R1
+
+    A1 -- Sends report --> U1
+    A1 -- Sends query --> R1
+    A1 -- Sends objective --> PI
+    PI -- Sends plan --> ED
+    ED -- Sends Experiment --> M
+    M -- Sends API Call --> CRO
+    CRO -- Sends data --> AN
+    AN -- Sends results --> RP
+    RP -- Sends report --> J
+    J -- Sends Judgment --> A1
+
+    R1 -- Sends question --> U1
+    R1 -- Sends info --> A1
+    AR -- Sends requests --> DB
+    DB -- Sends raw data --> AR
+    AR -- Sends info --> R1
+
+```
+
+Please construct the code for a mermaid chart representing the following information. 
+
+Three subgraphs of this chart are User, Agent, and Records. Each one of these is composed of nodes that have multiple connections.
+
+User: (Sends objective to Agent and Answers to Records) 
+
+Agents: (Sends report to User and query to Records)
+    - Agents sends objective to Principle Investigator
+    - Principle Investigator sends plan to Experimental Designer
+    - Experimental Designer sends Experiment to Monkey
+    - Monkey sends API Call to CRO
+    - CRO sends data to Analyst
+    - Analyst sends results to reporter
+    - Reporter sends report to Judge
+    - Judge sends Judgment to Agents
+Records: (Sends question to user and info to Agents)
+    - Archivist sends requests to the Database 
+    - Database sends raw data to Archivist
+    - Archivist sends info to Records
+    
+
 
 There are three groups that are capable of interacting: 
 * User 
@@ -330,63 +398,77 @@ Note: The above code assumes that you have Chimera software installed on your sy
 
 **User: **
 
-Please write an OpenAPI spec for an email to a colleague from this list who can complete this problem for you: List: James (Java Developer, james@email.com), Fran (Protein Engineer, fran@email.com), Stan (Hot dog creator, stan@email.com), Kali (Ice cream parlor owner, kali@gmail.com)
+Please write an OpenAPI spec for an email to a colleague from this list who can complete this problem for you. Please give them all the information they require to complete this task: 
+
+List: James (Java Developer, james@email.com), Fran (Protein Engineer, fran@email.com), Stan (Hot dog creator, stan@email.com), Kali (Ice cream parlor owner, kali@gmail.com)
 
 **Monkey**
 
-Here is an OpenAPI spec for an email API that sends an email to a colleague from the provided list:
+Here is an example OpenAPI spec for an email to Fran, the Protein Engineer, to complete the task:
 ```yaml
 openapi: 3.0.0
 info:
-  title: Email API
+  title: Email to Fran for BSA protein preparation
   version: 1.0.0
 servers:
-  - url: https://api.example.com
+  - url: https://example.com
 paths:
   /email:
     post:
-      summary: Sends an email to a colleague
+      summary: Send an email to Fran for BSA protein preparation
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                to:
+                recipient:
                   type: string
-                  description: Email address of the recipient
+                  enum: [fran@email.com]
                 subject:
                   type: string
-                  description: Subject of the email
+                  example: BSA protein preparation task
                 body:
                   type: string
-                  description: Body of the email
-                cc:
-                  type: array
-                  items:
-                    type: string
-                  description: List of email addresses to CC
+                  example: |
+                    Hi Fran,
+
+                    I hope this email finds you well. I have a task that I was hoping you could help me with. I need to prepare the BSA protein for docking by removing any water molecules, ligands, and ions using Chimera software.
+
+                    Here are the steps to complete the task:
+
+                    1. Retrieve the BSA protein structure from the PDB API using the following query:
+                    
+                    {"query":{"type":"terminal","service":"text","parameters":{"value":"bovine serum albumin"}},"return_type":"entry"}
+                    
+                    2. Extract the PDB ID for the BSA protein structure from the API response.
+                    
+                    3. Download the PDB file for the BSA protein structure using the following URL:
+                    
+                    https://files.rcsb.org/download/{pdb_id}.pdb
+                    
+                    4. Use Chimera software to remove water molecules, ligands, and ions from the BSA protein structure using the following commands:
+                    
+                    open https://files.rcsb.org/download/{pdb_id}.pdb
+                    delete solvent
+                    delete ligand
+                    delete ion
+                    write format pdb {pdb_id}_prepared.pdb
+
+                    Please let me know if you have any questions or concerns about the task. Thank you in advance for your help!
+
+                    Best regards,
+                    [Your name]
       responses:
         '200':
           description: Email sent successfully
         '400':
-          description: Invalid request body
+          description: Invalid recipient email address
         '500':
-          description: Internal server error
+          description:
 
 ```
-Example request body:
-
-```json
-{
-  "to": "james@email.com",
-  "subject": "Task: Prepare BSA protein",
-  "body": "Hi James,\n\nI hope you're doing well. I have a task that I need your help with. Can you please prepare the BSA protein for docking by removing any water molecules, ligands, and ions using Chimera software? Let me know if you need any further information or assistance.\n\nBest,\n[Your name]",
-  "cc": ["fran@email.com"]
-}
-```
-Note: You will need to implement the email API and integrate it with an email service provider such as SendGrid or Amazon SES to actually send the email.
+Note: This is just an example OpenAPI spec and may need to be modified to fit your specific use case and email service provider. Additionally, you will need to provide the actual API endpoint and API key for your email service provider in the `servers` section of the spec.
 
 
 ### Data Analyst 📊
@@ -409,6 +491,7 @@ wherein the Monkey simply continues ingesting and transforming data
 until the Experiment is fulfilled.
 
 An example using GPT3.5:
+
 **User:**
 
 You are an Analyst that works in a lab, your PI has asked you to Analyze some Data for them. Please construct code that will appropriately analyze the following data based on the given Environment. If you require information on techniques or libraries please insert \[query\] with the question. Feel free to include any other insights that feel relevant in your analysis. 
