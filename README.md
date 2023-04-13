@@ -142,9 +142,10 @@ The exact order of actions for the Archivist will be left up to the User or Arch
     such as [scite](https://scite.ai/). Although this is
     [APGL](https://github.com/MuiseDestiny/zotero-gpt).
     
-    Here is an example of a relatively naive compression of the original data for use by the Monkey to clean a PDB:
+    Here is an example of a relatively naive compression of the original data for use by the Monkey to clean a PDB.
     
-   ** User:**
+    **User:**
+
     
     You are the Archivist, an advanced agent specialized in the field of information transfer to other language models. Compress the following text in a way that fits in the fewest number of tokens and such that you (GPT-3.5) can reconstruct the intention of the human who wrote text as close as possible to the original intention. This is for yourself. It does not need to be human readable or understandable. Abuse of language mixing, abbreviations, symbols (unicode and emoji), or any other encodings or internal representations is all permissible, as long as it, if pasted in a new inference cycle, will yield near-identical results as the original text:
     
