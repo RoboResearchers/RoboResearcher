@@ -141,6 +141,15 @@ The exact order of actions for the Archivist will be left up to the User or Arch
 -   [ ] Which model is best suited for this task. Perhaps using tools
     such as [scite](https://scite.ai/). Although this is
     [APGL](https://github.com/MuiseDestiny/zotero-gpt).
+    
+    You are the Archivist, an advanced agent specialized in the field of information transfer to other language models. Compress the following text in a way that fits in the fewest number of tokens and such that you (GPT-3.5) can reconstruct the intention of the human who wrote text as close as possible to the original intention. This is for yourself. It does not need to be human readable or understandable. Abuse of language mixing, abbreviations, symbols (unicode and emoji), or any other encodings or internal representations is all permissible, as long as it, if pasted in a new inference cycle, will yield near-identical results as the original text:
+    
+    Info: Context Description return\_type Required. Specifies the type of the returned identifiers, e.g. entry, polymer entity, assembly, etc. See Return Type section for more information. query Optional. Specifies the search expression. Can be omitted if, instead of IDs retrieval, facets or count operation should be performed. In this case the request must be configured via the request\_options context. request\_options Optional. Controls various aspects of the search request including pagination, sorting, scoring and faceting. If omitted, the default parameters for sorting, scoring and pagination will be applied. request\_info Optional. Specifies an additional information about the query, e.g. query\_id. It's an optional property and used internally at RCSB PDB for logging purposes. When query\_id is sent with the search request, it will be included into the corresponding response object. The query context may consist of two types of clauses: Terminal node - performs an atomic search operation, e.g. searches for a particular value in a particular field. Parameters in the terminal query clause provide match criteria for finding relevant search hits. The set of parameters differs for different search services. Group node - wraps other terminal or group nodes and is used to combine multiple queries in a logical fashion. The simplest query requires specifying only return\_type parameter and query context. With unspecified parameters property in the query object, a query matches all documents, returning PDB IDs if the return\_type property is set to "entry". { "query": { "type": "terminal", "service": "text" }, "return\_type": "entry" } Query example: { "query": { "type": "terminal", "service": "full\_text", "parameters": { "value": "thymidine kinase" } }, "return\_type": "entry" } Response example: { "query\_id": "ce0e1f8a-2a66-4e3f-8b8b-7ecdb1e3458d", "result\_type": "entry", "total\_count": 2, "result_set": \[ { "identifier": "2V01", "score": 0.719 }, { "identifier": "3CLN", "score": 0.813 } \] } The URL and API key to access the PDB API. URL is "this.com" and API key is "1234ABCD" The molecular modeling software to be used for removing water molecules, ligands, and ions. Chimera
+    
+    Archivist:
+    Context Description return\_type req. Specifies type of returned IDs (entry, polymer entity, assembly). query opt. Specifies search expression. If omitted, facets/count op. used. req\_options opt. Controls various aspects of search request (pagination, sorting, scoring, faceting). If omitted, default params used. req\_info opt. Specifies additional query info (e.g. query\_id) for logging. query context consists of Terminal node (atomic search) and Group node (logical combo of queries). Simplest query requires only return\_type and query context. Unspecified params match all docs if return\_type set to "entry". {"query":{"type":"terminal","service":"text"},"return\_type":"entry"} Query example: {"query":{"type":"terminal","service":"full\_text","parameters":{"value":"thymidine kinase"}},"return\_type":"entry"} Response example: {"query\_id":"ce0e1f8a-2a66-4e3f-8b8b-7ecdb1e3458d","result\_type":"entry","total\_count":2,"result_set":\[{"identifier":"2V01","score":0.719},{"identifier":"3CLN","score":0.813}\]} URL: "this.com", API key: "1234ABCD". Software for removing water, ligands, ions: Chimera.
+
+
 
 ## Agents 🕵️
 
@@ -154,7 +163,7 @@ respective tasks such that minimal User interference will be required.
 (eg. PI outputs Research plan in a format that the Experimental Designer
 easily parses)
 
-### Principle Investigator🧑‍🔬
+### Principal Investigator🧑‍🔬
 
 Inputs: Objective, info Output: Research plan The info they request
 should be related to: 
@@ -162,12 +171,30 @@ should be related to:
 * Budget 
 * Information on available equipment
 
-The Principle investigators job is to build a research plan to tackle
+The Principal investigators job is to build a research plan to tackle
 the objective. This could be thought of as the highest level planner.
 
-An illustrative example for a peptide generation problem:
+An example using GPT3.5 for a peptide generation problem:
 
-![image](https://user-images.githubusercontent.com/47462814/231204480-08f5de60-88d4-47dc-b13f-f57fd5ca123a.png)
+User:
+You are a Principal investigator of a biotechnology lab, you are tasked with ensuring that your lab is able to complete a research objective without overspending your budget. Objective: Design a peptide that can bind to the protein BSA with both specificity and strength Budget: 100k Equipment: Peptide synthesis (10$ per residue), Supercomputers (100$ per 1,000 docking runs), SPR (10,000$ per run of 100 peptides)
+
+ 
+Principal Investigator: 
+To design a peptide that can bind to the protein BSA with both specificity and strength within the given budget, here's what you can do:
+
+1.  Start by designing a set of potential peptides using computational methods. This would involve using supercomputers to dock different peptides onto the BSA protein and predict which ones are likely to bind with high specificity and strength. Assuming 1,000 docking runs at a cost of $100 per 1,000 runs, this would cost $10,000.
+    
+2.  Once you have a set of potential peptides, synthesize them using peptide synthesis equipment. Assuming an average peptide length of 20 amino acids, this would cost $200 per peptide. To synthesize 100 peptides, the total cost would be $20,000.
+    
+3.  Screen the synthesized peptides for binding to the BSA protein using surface plasmon resonance (SPR) assays. Assuming a cost of $10,000 per run of 100 peptides, the total cost for screening all 100 peptides would be $100,000.
+    
+4.  Analyze the SPR data and select the top 10 peptides that show the strongest and most specific binding to BSA. Synthesize these top 10 peptides again to confirm their binding activity.
+    
+5.  Finally, use advanced computational tools to optimize the sequence of the top peptides to improve their binding affinity and specificity to the BSA protein.
+    
+
+Overall, this approach would cost $130,000 ($10,000 for docking, $20,000 for peptide synthesis, $100,000 for SPR screening) but would provide the best chance of achieving the research objective within the given budget.
 
 ### Experimental Designer 🥼
 
@@ -183,9 +210,28 @@ The info requested should be related to:
 * Equipment 
 * Information on available equipment
 
-An illustrative example:
+An example using GPT3.5:
 
-![image](https://user-images.githubusercontent.com/47462814/231213330-67df6d9d-d07d-4f2c-ac08-856921a79db8.png)
+User:
+You are an Experimental Designer who has been tasked by your PI to design the experiments for their Research Plan. The Equipment is a list of all the things available for any Experiment you develop. Please write up a step by step guide for the experiment such that each step is as self-contained as possible. Do not suggest any new research outside of the Research Plan and feel free to insert \[User Input Here\] for any techniques you may not know. Research Plan: Start by designing a set of potential peptides using computational methods. This would involve using supercomputers to dock different peptides onto the BSA protein and predict which ones are likely to bind with high specificity and strength. Assuming 1,000 docking runs at a cost of $100 per 1,000 runs, this would cost $10,000. Equipment: Supercomputer, Modeling Software, Docking Software, Bash scripting, PDB API access.
+
+ 
+
+Experimental Designer:
+
+1.  Generate a list of potential peptides: Use modeling software to generate a list of potential peptides. This can be done using de novo peptide design or by modifying existing peptides to improve binding to BSA protein. \[User Input Here\] can be used for this step.
+    
+2.  Prepare BSA protein: Retrieve the BSA protein structure from the PDB API access and prepare the protein for docking by removing any water molecules, ligands, and ions using modeling software. \[User Input Here\] can be used for this step.
+    
+3.  Prepare peptides: Prepare the potential peptides for docking by optimizing their geometry and adding charges using modeling software. \[User Input Here\] can be used for this step.
+    
+4.  Dock peptides onto BSA protein: Use docking software to dock each peptide onto the BSA protein. This will help predict which peptides are likely to bind with high specificity and strength. \[User Input Here\] can be used for this step.
+    
+5.  Analyze docking results: After docking, analyze the results to identify which peptides have the highest binding affinity to BSA protein. This can be done using \[User Input Here\] software or by writing a custom script in Bash.
+    
+6.  Validate top candidates: Select the top candidates based on the docking results and perform experimental validation to confirm their binding affinity.
+    
+7.  Synthesize top candidates: Synthesize the top candidates
 
 ### Monkey 🐵
 
@@ -202,6 +248,114 @@ read by the appropriate API or CRO representative. Alternatively the
 Monkey will begin attempting to execute code in a local environment to
 complete the task required. If the Monkey runs into problems it asks the
 Archivist for help.
+
+Here is an example of how the Monkey generates code to clean BSA in accordance with the first task in the experiment outlined above.
+
+**User:**
+
+You are a Coder in a prestigious research lab, your job is to execute a Task that the Experimental Designer has made. You only need to complete the task at hand. Info contains the relevant information required to solve this problem. Please generate code to be executed to complete this task. 
+
+Task: Prepare BSA protein: Retrieve the BSA protein structure from the PDB API access and prepare the protein for docking by removing any water molecules, ligands, and ions using modeling software. 
+
+Info: Context Description return\\\_type req. Specifies type of returned IDs (entry, polymer entity, assembly). query opt. Specifies search expression. If omitted, facets/count op. used. req\\\_options opt. Controls various aspects of search request (pagination, sorting, scoring, faceting). If omitted, default params used. req\\\_info opt. Specifies additional query info (e.g. query\\\_id) for logging. query context consists of Terminal node (atomic search) and Group node (logical combo of queries). Simplest query requires only return\\\_type and query context. Unspecified params match all docs if return\\\_type set to "entry". {"query":{"type":"terminal","service":"text"},"return\\\_type":"entry"} Query example: {"query":{"type":"terminal","service":"full\\\_text","parameters":{"value":"thymidine kinase"}},"return\\\_type":"entry"} Response example: {"query\\\_id":"ce0e1f8a-2a66-4e3f-8b8b-7ecdb1e3458d","result\\\_type":"entry","total\\\_count":2,"result_set":\\\[{"identifier":"2V01","score":0.719},{"identifier":"3CLN","score":0.813}\\\]} URL: "this.com", API key: "1234ABCD". Software for removing water, ligands, ions: Chimera
+
+**Monkey:**
+
+To complete the task, you will need to use the PDB API to retrieve the BSA protein structure, and then use Chimera software to prepare the protein for docking by removing water molecules, ligands, and ions. Here is an example code in Python:
+
+```python
+import requests
+
+# Define the query to retrieve the BSA protein structure from the PDB API
+query = {
+    "query": {
+        "type": "terminal",
+        "service": "text",
+        "parameters": {
+            "value": "bovine serum albumin"
+        }
+    },
+    "return_type": "entry"
+}
+
+# Make a request to the PDB API to retrieve the BSA protein structure
+response = requests.post("https://data.rcsb.org/graphql", json=query)
+
+# Extract the PDB ID for the BSA protein structure
+pdb_id = response.json()["data"]["entries"]["nodes"][0]["accessionId"]
+
+# Download the PDB file for the BSA protein structure
+pdb_url = f"https://files.rcsb.org/download/{pdb_id}.pdb"
+pdb_data = requests.get(pdb_url).text
+
+# Use Chimera software to remove water molecules, ligands, and ions from the BSA protein structure
+# Replace the path_to_chimera with the actual path to Chimera on your system
+path_to_chimera = "/path/to/chimera"
+chimera_script = f"open {pdb_url}; delete solvent; delete ligand; delete ion; write format pdb {pdb_id}_prepared.pdb"
+!{path_to_chimera} --nogui --script "{chimera_script}"
+```
+Note: The above code assumes that you have Chimera software installed on your system and it can be executed using the command `path_to_chimera --nogui --script "script_path"`. If you encounter any issues with Chimera, please refer to the Chimera documentation or contact their support team.
+
+**User: **
+
+Please write an OpenAPI spec for an email to a colleague from this list who can complete this problem for you: List: James (Java Developer, james@email.com), Fran (Protein Engineer, fran@email.com), Stan (Hot dog creator, stan@email.com), Kali (Ice cream parlor owner, kali@gmail.com)
+
+**Monkey**
+
+Here is an OpenAPI spec for an email API that sends an email to a colleague from the provided list:
+```yaml
+openapi: 3.0.0
+info:
+  title: Email API
+  version: 1.0.0
+servers:
+  - url: https://api.example.com
+paths:
+  /email:
+    post:
+      summary: Sends an email to a colleague
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                to:
+                  type: string
+                  description: Email address of the recipient
+                subject:
+                  type: string
+                  description: Subject of the email
+                body:
+                  type: string
+                  description: Body of the email
+                cc:
+                  type: array
+                  items:
+                    type: string
+                  description: List of email addresses to CC
+      responses:
+        '200':
+          description: Email sent successfully
+        '400':
+          description: Invalid request body
+        '500':
+          description: Internal server error
+
+```
+Example request body:
+
+```json
+{
+  "to": "james@email.com",
+  "subject": "Task: Prepare BSA protein",
+  "body": "Hi James,\n\nI hope you're doing well. I have a task that I need your help with. Can you please prepare the BSA protein for docking by removing any water molecules, ligands, and ions using Chimera software? Let me know if you need any further information or assistance.\n\nBest,\n[Your name]",
+  "cc": ["fran@email.com"]
+}
+```
+Note: You will need to implement the email API and integrate it with an email service provider such as SendGrid or Amazon SES to actually send the email.
+
 
 #### API’s and other access points
 
@@ -227,64 +381,6 @@ arrangement is made with an appropriate representative. If desired one
 may even have the Monkey trawl the internet for academic research labs
 doing similar experiments and send emails asking for a collaboration.
 
-An illustrative example where the Monkey attempts to access BSA and runs
-into problems with the URL and API key
-
-![image](https://user-images.githubusercontent.com/47462814/231218694-665dac43-7b83-40e4-9514-b24e5244f7e2.png)
-![image](https://user-images.githubusercontent.com/47462814/231218819-f765fa61-8608-4121-984c-752ca251fdc1.png)
-![image](https://user-images.githubusercontent.com/47462814/231218955-a10a3217-c2dc-4ca2-b1f2-9c70fb24335b.png)
-![image](https://user-images.githubusercontent.com/47462814/231220256-796357fb-a79a-4a69-96e3-369dfe97e876.png)
-
-``` python
-import required modules
-import requests
-import os
-
-# Set the PDB API URL and API key
-url = "https://this.com"
-api_key = "1234ABCD"
-
-# Define the PDB query to retrieve the BSA protein structure
-query = {
-  "query": {
-    "type": "terminal",
-    "service": "text",
-    "parameters": {
-      "value": "BSA"
-    }
-  },
-  "return_type": "polymer_entity"
-}
-
-# Send the query to the PDB API to retrieve the BSA protein structure
-response = requests.post(url, json=query, headers={"Authorization": api_key})
-response_json = response.json()
-
-# Get the BSA protein ID from the response
-bsa_id = response_json["result_set"][0]["identifier"]
-
-# Download the BSA protein structure in PDB format
-pdb_url = f"{url}/download/downloadFile.do?fileFormat=pdb&id={bsa_id}"
-response = requests.get(pdb_url)
-pdb_data = response.content
-
-# Save the BSA protein structure to a file
-with open("bsa.pdb", "wb") as f:
-    f.write(pdb_data)
-
-# Open the BSA protein structure in Chimera
-os.system("chimera bsa.pdb")
-
-# Remove water molecules, ligands, and ions using Chimera
-# Save the modified protein structure in PDB format
-os.system("chimera --nogui --script 'open bsa.pdb; delete solvent; delete ligand; delete ion; write bsa_clean.pdb'")
-```
-
-If instead they are asked to send an email to a person to perform this
-task:
-
-![image](https://user-images.githubusercontent.com/47462814/231221893-22c0940e-ec69-4235-94cf-eee1e844285c.png)
-
 ### Data Analyst 📊
 
 Inputs: Data, info, experiment
@@ -304,11 +400,68 @@ alone or be subsumed by the Monkey-Experimental Designer relationship,
 wherein the Monkey simply continues ingesting and transforming data
 until the Experiment is fulfilled.
 
-An illustrative example:
+An example using GPT3.5:
+**User:**
 
-![image](https://user-images.githubusercontent.com/47462814/231228581-d3a5f9c6-50e5-4b86-90f6-7176d9cd9f46.png)
-![image](https://user-images.githubusercontent.com/47462814/231228869-786962a8-d47d-48a2-8683-c609c3ec77c0.png)
-![image](https://user-images.githubusercontent.com/47462814/231228972-d323a20f-74f3-458a-a093-94684cdb161d.png)
+You are an Analyst that works in a lab, your PI has asked you to Analyze some Data for them. Please construct code that will appropriately analyze the following data based on the given Environment. If you require information on techniques or libraries please insert \[query\] with the question. Feel free to include any other insights that feel relevant in your analysis. 
+Analyze: Analyze the Surface Plasmon Resonance (SPR) and compare to the calculated binding for each peptide. Use this to identify which features in the peptide sequence were related to the failures in the computational method. 
+Environment: SPR\_binding (100x1000), Peptide\_sequence(100x20), Calculated_binding(100x10)
+
+**Analyst:**
+
+To analyze the Surface Plasmon Resonance (SPR) and compare it to the calculated binding for each peptide sequence, we can use Python and the NumPy and Pandas libraries. We will assume that the SPR\_binding, Peptide\_sequence, and Calculated_binding are all provided as CSV files.
+
+First, we will import the necessary libraries and load the data:
+```python
+import pandas as pd
+import numpy as np
+
+# load the data
+spr_data = pd.read_csv('SPR_binding.csv')
+peptide_data = pd.read_csv('Peptide_sequence.csv')
+calc_data = pd.read_csv('Calculated_binding.csv')
+
+```
+Next, we will merge the three datasets based on the index:
+```python
+# merge the data
+merged_data = pd.concat([spr_data, peptide_data, calc_data], axis=1)
+```
+We can then calculate the correlation between the SPR values and the calculated binding for each peptide:
+```python
+# calculate the correlation
+correlations = merged_data.corr()['SPR_binding']
+
+# print the correlations
+print(correlations)
+
+```
+This will print out the correlation coefficients for each column in the merged dataset, with the SPR_binding column as the reference. We can then use this to identify which features in the peptide sequence were related to the failures in the computational method.
+
+To visualize the correlation coefficients, we can create a heatmap using the Seaborn library:
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# create a heatmap
+sns.heatmap(correlations.to_frame(), cmap='coolwarm', annot=True)
+
+# show the plot
+plt.show()
+
+```
+This will display a heatmap that shows the correlation coefficients between each column in the merged dataset and the SPR_binding column, with positive correlations in red and negative correlations in blue. We can use this heatmap to identify which features in the peptide sequence were related to the failures in the computational method, by looking for columns with low or negative correlation coefficients.
+
+Finally, we can export the merged dataset with the correlation coefficients to a new CSV file:
+
+```python
+# export the merged dataset with the correlation coefficients
+merged_data.to_csv('merged_data.csv')
+
+```
+This will create a new CSV file that contains the merged dataset with the correlation coefficients, which can be used for further analysis.
+
 
 ### Reporter 🎤
 
@@ -321,7 +474,7 @@ The info they request should be:
 
 The reporters job is to compile the results from the Analyst into a
 human-readable report. This is where a [multi-modal LM](https://ai.googleblog.com/2023/03/palm-e-embodied-multimodal-language.html) can shine
-or an open-source [alternative](https://blog.salesforceairesearch.com/blip-2/). The goal
+here is an open-source [alternative](https://blog.salesforceairesearch.com/blip-2/). The goal
 is to create a report with a variety of multi-media information that
 pertains to the original objective. Showing how the objective has been
 answered experimentally and what those results indicate the answer to
