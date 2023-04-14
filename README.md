@@ -560,3 +560,4 @@ The Judge’s job is to evaluate the report and determine if the research
 satisfied the objective, if not then it will be fed back into the cycle.
 If it does the report and the judgment will be sent to the User.
 
+Another role of the judge is to determine if the Agents are getting off topic or distracted. A possible implementation would be comparing the vector embedding of an Agents conversation against the Objective, and if the difference is too high the Judge evaluates the conversation and flags it for User review. 
