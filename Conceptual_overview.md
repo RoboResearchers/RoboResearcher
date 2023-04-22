@@ -57,3 +57,10 @@ From: A large language model for electronic health records
 ![c10fa41971a1de4af14ae8b9b34483fd.png](c10fa41971a1de4af14ae8b9b34483fd.png)
 
 What is important to note is that a multimodal reasoning must be included for full analysis such as this [MM-COT](https://github.com/amazon-science/mm-cot) that was released. [Llamaindex](https://github.com/jerryjliu/llama_index) and [LangChain](https://python.langchain.com/en/latest/index.html) are both of note here as well and will be a good basis for this tool. What the best choice will probably be is to generate this as model-agnostic while budding off new models we specifically designed for the agents as "suggested Agents". 
+
+
+notes for useful information:
+
+# TOOLS
+https://techserr.com/chatgpt-the-future-of-pymol-automation/
+
