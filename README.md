@@ -326,6 +326,8 @@ Monkey will begin attempting to execute code in a local environment to
 complete the task required. If the Monkey runs into problems it asks the
 Archivist for help.
 
+(API fine-tuning)[
+https://github.com/danielgross/LlamaAcademy]
 Here is an example of how the Monkey generates code to clean BSA in accordance with the first task in the experiment outlined above. Of note when asked to send the email based on the list the Monkey selected a Java developer over a Protein Engineer, this may be due to the identification of this as a "programming task" but we should be aware that bias may be introduced. 
 
 > **User:**
