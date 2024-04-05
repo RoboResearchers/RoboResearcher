@@ -27,8 +27,6 @@ reasoning and tool use similar to [ART: Automatic Multi-Step Reasoning and Tool-
 
 # Structure 🧱
 
-![image](https://user-images.githubusercontent.com/47462814/231152697-e0f6d0ac-3e35-4328-9cb4-51ddd3d7d34e.png)
-
 
 ```mermaid
 graph TB
